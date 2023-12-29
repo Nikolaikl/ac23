@@ -2,13 +2,14 @@ FROM python:3.9
 
 WORKDIR /app
 
-COPY . /app
+COPY ./app/ /app
+COPY requirements.txt .
 
-RUN pip install --no-cache-dir fastapi uvicorn openai
+RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 8000
+EXPOSE 8501
 
-ENV MODEL_NAME=llama-2
+ENV MODEL_NAME=gpt3-turbo
 ENV OPENAI_API_KEY=your-api-key
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
