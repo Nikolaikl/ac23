@@ -1,15 +1,8 @@
-import os
 import time
 
-import openai
 import streamlit as st
-from dotenv import load_dotenv
 
 from app.model.chat import chain_workflow
-
-load_dotenv()
-
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Initialize chat history
 if "messages" not in st.session_state:

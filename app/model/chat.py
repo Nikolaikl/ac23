@@ -4,7 +4,8 @@ Ideally we would use Olama for a locally running quantised LLama-2
 assuming we have  sufficient RAM/VRAM.
 """
 import os
-
+from dotenv import load_dotenv
+import openai
 import streamlit as st
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
@@ -18,6 +19,10 @@ from langchain_core.documents import Document
 
 from app.utils.fetch_papers import fetch_papers, load_papers_from_json
 
+load_dotenv()
+
+# Load Openai API key
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @st.cache_resource
 def chain_workflow():
