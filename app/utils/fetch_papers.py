@@ -2,8 +2,9 @@ import json
 import urllib.request
 import xml.etree.ElementTree as ET
 
+from typing import List
 
-def fetch_papers():
+def fetch_papers() -> List[str]:
     """Fetches papers from the arXiv API returns them as a list of strings."""
 
     url = (
@@ -30,7 +31,6 @@ def fetch_papers():
     return papers_list
 
 
-
 def load_papers_from_json(filename="papers.json"):
     """Loads papers from a json file and returns them as a list of strings."""
 
@@ -40,7 +40,7 @@ def load_papers_from_json(filename="papers.json"):
     return papers_list
 
 
-def save_papers_to_json(papers_list, filename="papers.json"):
+def save_papers_to_json(papers_list: List[str], filename="papers.json"):
     """Saves a list of papers to a file."""
 
     with open(filename, "w") as f:
