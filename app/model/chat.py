@@ -33,24 +33,11 @@ def chain_workflow():
     if not os.path.exists("vector_index/chroma.sqlite3"):
         # If it doesn't exist, create it
 
-        try:
-            documents = ".documents/papers.json"
-            documents = load_papers_from_json(documents)
+        documents = fetch_papers()
 
-        except FileNotFoundError:
-            documents = fetch_papers()
-            save_papers_to_json(papers_list=documents, filename="papers.json")
-
-        # split documents
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000,
-                                                       chunk_overlap=150)
-
-        splits = text_splitter.split_documents(documents)
-
-        # persist_directory
         persist_directory = "vector_index/"
 
-        vectordb = Chroma.from_documents(documents=splits,
+        vectordb = Chroma.from_documents(documents=documents,
                                          embedding=embeddings,
                                          persist_directory=persist_directory)
 
