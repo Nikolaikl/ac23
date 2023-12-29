@@ -4,6 +4,7 @@ Ideally we would use Olama for a locally running quantised LLama-2
 assuming we have  sufficient RAM/VRAM.
 """
 import os
+from pydantic.v1 import FloatError
 
 import streamlit as st
 from langchain.chains import ConversationalRetrievalChain
@@ -12,11 +13,12 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import LLMChainExtractor
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 
-from app.utils.fetch_papers import (fetch_papers, load_papers_from_json,
-                                    save_papers_to_json)
+from langchain.document_loaders import TextLoader
+
+from app.utils.fetch_papers import fetch_papers, load_papers_from_json
 
 
 @st.cache_resource
@@ -29,17 +31,27 @@ def chain_workflow():
     # Load OpenAI embedding model
     embeddings = OpenAIEmbeddings()
 
+# create the open-source embedding function
+
     # Check if the file exists
     if not os.path.exists("vector_index/chroma.sqlite3"):
         # If it doesn't exist, create it
 
-        documents = fetch_papers()
+        try:
+            papers = load_papers_from_json("./documents/papers.json")
+        except FileNotFoundError:
+            raise FileNotFoundError
+            
+        text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+        docs = text_splitter.split_documents(documents)
 
         persist_directory = "vector_index/"
 
-        vectordb = Chroma.from_documents(documents=documents,
-                                         embedding=embeddings,
-                                         persist_directory=persist_directory)
+        vectordb = Chroma.from_documents(
+            documents=docs,
+            embedding=embeddings,
+            persist_directory=persist_directory,
+        )
 
         vectordb.persist()
         print(
@@ -47,8 +59,9 @@ def chain_workflow():
         )
     else:
         # if vectorstore already exist, just call it
-        vectordb = Chroma(persist_directory=persist_directory,
-                          embedding_function=embeddings)
+        vectordb = Chroma(
+            persist_directory=persist_directory, embedding_function=embeddings
+        )
 
     # Load OpenAI chat model
     llm = ChatOpenAI(temperature=0)
@@ -57,8 +70,7 @@ def chain_workflow():
     compressor = LLMChainExtractor.from_llm(llm)
     compression_retriever = ContextualCompressionRetriever(
         base_compressor=compressor,
-        base_retriever=vectordb.as_retriever(search_type="mmr",
-                                             search_kwargs={"k": 3}),
+        base_retriever=vectordb.as_retriever(search_type="mmr", search_kwargs={"k": 3}),
     )
 
     # Create memory 'chat_history'

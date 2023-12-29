@@ -31,7 +31,7 @@ def fetch_papers() -> List[str]:
     return papers_list
 
 
-def load_papers_from_json(filename="papers.json"):
+def load_papers_from_json(filename=".documents/papers.json"):
     """Loads papers from a json file and returns them as a list of strings."""
 
     with open(filename, "r") as f:
@@ -40,9 +40,23 @@ def load_papers_from_json(filename="papers.json"):
     return papers_list
 
 
-def save_papers_to_json(papers_list: List[str], filename="papers.json"):
-    """Saves a list of papers to a file."""
+def save_papers_to_json(
+        papers_list: list[str],
+        filename="./.documents/papers.json"
+):
+    """saves a list of papers to a file."""
 
     with open(filename, "w") as f:
-        for paper in papers_list:
-            json.dump(paper, f)
+        json.dump(papers_list, f)
+
+
+def save_papers_to_json_lines(
+        papers_list: list[str],
+        filename="./.documents/papers.jsonl"
+):
+    """saves a list of papers to a file."""
+
+    json_lines = [json.dumps(paper) for paper in papers_list]
+    json_data = '\n'.join(json_lines)
+    with open(filename, "w") as f:
+        f.write(json_data)
