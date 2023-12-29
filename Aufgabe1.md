@@ -47,3 +47,7 @@ Beim Trainieren des Modells sind folgende Metriken entscheidend:
     Markt: Viele LLMS koennten als unterscheidliceh Produkte entwickelt und verkauft werden - sowohl kommerziell als auch Non-Profit. Data Scientists sind oftmals auch in der Lage diese Business Development Bruecke auch zu schlagen weil sie ihre Anwendung besser kennen als Software Engineers.
     Halluzinationen: Vor allem im juristischen Kontext koennten Hallizinationen der LLMs - quasi falsche Tipps und verworrene und erfundene Paragraphen - zu fatalen Fehlern folgen. Dies sollte auf jeden fall beruecksichtigt werden.
 
+# Addendum:
+
+Was noch gemacht werden koennte:
+* Software Design ala RESHADED
