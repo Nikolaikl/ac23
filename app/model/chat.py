@@ -40,10 +40,10 @@ def chain_workflow():
         try:
             papers = load_papers_from_json("./documents/papers.json")
         except FileNotFoundError:
-            raise FileNotFoundError
-            
+            papers = fetch_papers()
+
         text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-        docs = text_splitter.split_documents(documents)
+        docs = text_splitter.split_documents(papers)
 
         persist_directory = "vector_index/"
 
