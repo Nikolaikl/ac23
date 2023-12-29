@@ -1,3 +1,4 @@
+import json
 import urllib.request
 import xml.etree.ElementTree as ET
 
@@ -27,3 +28,21 @@ def fetch_papers():
         papers_list.append(paper_info)
 
     return papers_list
+
+
+
+def load_papers_from_json(filename="papers.json"):
+    """Loads papers from a json file and returns them as a list of strings."""
+
+    with open(filename, "r") as f:
+        papers_list = json.load(f)
+
+    return papers_list
+
+
+def save_papers_to_json(papers_list, filename="papers.json"):
+    """Saves a list of papers to a file."""
+
+    with open(filename, "w") as f:
+        for paper in papers_list:
+            json.dump(paper, f)
