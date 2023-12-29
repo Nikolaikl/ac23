@@ -12,4 +12,4 @@ EXPOSE 8501
 ENV MODEL_NAME=gpt3-turbo
 ENV OPENAI_API_KEY=your-api-key
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD streamlit runn app/app.py --server.port 8501 --server.enableCORS false
