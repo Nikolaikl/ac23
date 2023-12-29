@@ -45,5 +45,9 @@ Beim Trainieren des Modells sind folgende Metriken entscheidend:
     Expertise: Zusammenarbeit von Juristen und Datenwissenschaftlern, um eine Brücke zwischen juristischer Expertise und technischem Know-how zu schlagen.
     Community und Ressourcen: Nutzung von Open-Source-Ressourcen und der Community für Unterstützung und Leitfäden beim Training von LLMs. Nutzung von der juristischen Studierdenschaft zur Schaffung eines OSS Netzwerks zur verbesserung dieses Dienstes.
     Markt: Viele LLMS koennten als unterscheidliceh Produkte entwickelt und verkauft werden - sowohl kommerziell als auch Non-Profit. Data Scientists sind oftmals auch in der Lage diese Business Development Bruecke auch zu schlagen weil sie ihre Anwendung besser kennen als Software Engineers.
+    Halluzinationen: Vor allem im juristischen Kontext koennten Hallizinationen der LLMs - quasi falsche Tipps und verworrene und erfundene Paragraphen - zu fatalen Fehlern folgen. Dies sollte auf jeden fall beruecksichtigt werden.
 
+# Addendum:
 
+Was noch gemacht werden koennte:
+* Software Design ala RESHADED
