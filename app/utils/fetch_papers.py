@@ -1,8 +1,8 @@
 import json
 import urllib.request
 import xml.etree.ElementTree as ET
-
 from typing import List
+
 
 def fetch_papers() -> List[str]:
     """Fetches papers from the arXiv API returns them as a list of strings."""
