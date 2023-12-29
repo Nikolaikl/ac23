@@ -20,7 +20,11 @@ pip install -r requirements.txt
 streamlit run app/main.py
 ```
 
+In dieser Applikation sollte dann ein Chatfenster offen sein, in dem Sie ihre Fragen zu LLama 2 stellen koennen.
+
 ## TODO's
 
-TODO: REST API aufbau mit Post endpoint ?
-TODO: ...
+- TODO: REST API aufbau mit Post endpoint ?
+- TODO: Docker Container
+- TODO: Emebddings in Container updaten ?
+- TODO: Healthchecks implementieren ...
